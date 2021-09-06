@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    var cepDigitado = Request.Query["cep"];
+    Models.CEP cep = ViewData["cep"] as Models.CEP;
+    ViewData["Title"] = "Home page";
+    var errorCEP = ViewData["errorCEP"];
+}
+
+<div>
+    <form class="d-flex">
+        <input name="cep"
+               class="form-control cep"
+               placeholder="Digite o CEP aqui"
+               required
+               minlength="8"
+               value="@cepDigitado" />
+        <button type="submit" class="ml-1 btn btn-primary">Buscar</button>
+    </form>
+    @if (cep != null)
+    {
+        <div class="d-flex flex-column p-2">
+            <span><b>CEP: </b> @cep?.cep</span>
+            <span><b>Logradouro: </b> @cep?.logradouro</span>
+            <span><b>Complemento: </b> @cep?.complemento</span>
+            <span><b>Bairro: </b> @cep?.bairro</span>
+            <span><b>Localidade: </b> @cep?.localidade</span>
+            <span><b>UF: </b> @cep?.uf</span>
+            <span><b>IBGE: </b> @cep?.ibge</span>
+            <span><b>DDD: </b> @cep?.ddd</span>
+        </div>
+    }
+    else if (errorCEP != null)
+    {
+        <span class="text-danger pl-2">@errorCEP</span>
+    }
+</div>
